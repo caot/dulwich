@@ -642,8 +642,8 @@ class DiskRefsContainer(RefsContainer):
         self._check_refname(name)
         self._check_refname(other)
         filename = self.refpath(name)
+        f = GitFile(filename, 'wb')
         try:
-            f = GitFile(filename, 'wb')
             try:
                 f.write(SYMREF + other + b'\n')
             except (IOError, OSError):

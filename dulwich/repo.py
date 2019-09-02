@@ -876,7 +876,13 @@ class Repo(BaseRepo):
         # the dumb web serving code.
         if basedir is None:
             basedir = self.controldir()
-        path = path.lstrip(os.path.sep)
+
+        sep = os.path.sep
+        if type(path) == bytes:
+            sep = bytes(sep, 'utf-8')
+
+        path = path.lstrip(sep)
+
         try:
             return open(os.path.join(basedir, path), 'rb')
         except (IOError, OSError) as e:
